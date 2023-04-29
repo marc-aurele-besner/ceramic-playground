@@ -1,6 +1,7 @@
 # composedb-playground
 
 This is a simple playground for experimenting with Ceramic and and ComposeDB.
+It can be especially useful for building models with relations.
 
 ## Getting Started
 
@@ -48,7 +49,7 @@ When running
 pnpm build
 ```
 
-The relation will be fixed automatically by replacing [modelName:<model-name>] with the actual model id.
+The relation will be fixed automatically by replacing [modelName:comment] with the actual model id of the Comment model, if there is relation that can't be resolved on the first pass, the build script will resolve each relations until all relations are resolved.
 
 ## Documentation
 
