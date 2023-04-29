@@ -58,6 +58,10 @@ const format = () => {
     `Main JS definition build at ${DEFINITION_DIR}/index.js 💾`,
     "\x1b[0m"
   );
+
+  // Build a text file with all modelsIds
+  const modelsIds = modelsList.map((model) => model.modelId).join(" ");
+  writeFileSync(`${GENERATED_DIR}/models-ids.txt`, modelsIds);
 };
 
 format();

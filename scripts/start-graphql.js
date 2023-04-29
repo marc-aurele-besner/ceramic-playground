@@ -7,8 +7,6 @@ const build = async () => {
     throw new Error("CERAMIC_URL env variable is required");
   if (!process.env.COMPOSITE_DIR)
     throw new Error("COMPOSITE_DIR env variable is required");
-  if (!process.env.COMPOSITE_PATH)
-    throw new Error("COMPOSITE_PATH env variable is required");
   if (!process.env.GRAPHQL_PORT)
     throw new Error("GRAPHQL_PORT env variable is required");
 
@@ -19,7 +17,7 @@ const build = async () => {
     const server = await serveEncodedDefinition({
       ceramicURL: CERAMIC_URL,
       graphiql: true,
-      path: `${COMPOSITE_DIR}/${COMPOSITE_PATH}`,
+      path: `${COMPOSITE_DIR}/allModels.json`,
       port: Number(GRAPHQL_PORT),
     });
 

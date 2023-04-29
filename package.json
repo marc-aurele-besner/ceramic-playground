@@ -21,7 +21,8 @@
   "scripts": {
     "dev": "bash ./scripts/run-dev.sh",
     "build": "bash ./scripts/build-composite.sh",
-    "start:graphql": "bash ./scripts/start-graphql.sh"
+    "start:graphql": "bash ./scripts/start-graphql.sh",
+    "clean": "bash ./scripts/clean.sh"
   },
   "dependencies": {
     "@ceramicnetwork/cli": "^2.29.0",
