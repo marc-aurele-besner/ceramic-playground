@@ -43,3 +43,10 @@ ${NC}"
 pnpm composedb composite:from-model ${MODEL_ID} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}" --output=${COMPOSITE_DIR}/${COMPOSITE_PATH}
 
 node ./scripts/format-composite.js
+
+printf "${BLUE}Deploy composite ${MODEL_ID} 📦
+${NC}"
+
+composedb composite:deploy ${COMPOSITE_DIR}/${COMPOSITE_PATH} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}"
+
+composedb composite:compile ${COMPOSITE_DIR}/${COMPOSITE_PATH} ${COMPOSITE_DIR}/definition.js
