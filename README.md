@@ -1,4 +1,4 @@
-# ceramic-playground
+# composedb-playground
 
 This is a simple playground for experimenting with Ceramic and and ComposeDB.
 
