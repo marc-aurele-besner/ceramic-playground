@@ -27,3 +27,7 @@ Start the GraphQL server:
 ```bash
 pnpm start:graphql
 ```
+
+## Documentation
+
+[ComposeDB](https://composedb.js.org/docs/0.4.x/getting-started)
