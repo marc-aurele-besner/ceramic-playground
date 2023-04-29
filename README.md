@@ -15,3 +15,15 @@ Start the Ceramic daemon:
 ```bash
 pnpm dev
 ```
+
+Build the composite
+
+```bash
+pnpm build
+```
+
+Start the GraphQL server:
+
+```bash
+pnpm start:graphql
+```
