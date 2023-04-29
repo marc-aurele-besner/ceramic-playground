@@ -5,7 +5,8 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "bash ./scripts/run-dev.sh"
+    "dev": "bash ./scripts/run-dev.sh",
+    "build": "bash ./scripts/build-composite.sh"
   },
   "dependencies": {
     "@ceramicnetwork/cli": "^2.29.0",
