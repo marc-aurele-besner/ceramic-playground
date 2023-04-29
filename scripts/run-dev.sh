@@ -7,8 +7,10 @@ BYELLOW='\033[1;33m'
 NC='\033[0m'
 
 CERAMIC_URL='http:/0.0.0.0:7007'
+MODELS_DIR='./models'
 GENERATED_DIR='./.generated'
-COMPOSITE_DIR=${GENERATED_DIR}'/composite'
+COMPOSITE_DIR=${GENERATED_DIR}'/composites'
+DEFINITION_DIR=${GENERATED_DIR}'/definitions'
 GRAPHQL_PORT="5002"
 
 if test -f .env; then
@@ -26,8 +28,10 @@ ${NC}"
     did=$(composedb did:from-private-key $pk)
     echo "COMPOSEDB_ADMIN_DID=\"$did\"" >> .env
     echo "CERAMIC_URL=\"$CERAMIC_URL\"" >> .env
+    echo "MODELS_DIR=\"$MODELS_DIR\"" >> .env
     echo "GENERATED_DIR=\"$GENERATED_DIR\"" >> .env
     echo "COMPOSITE_DIR=\"$COMPOSITE_DIR\"" >> .env
+    echo "DEFINITION_DIR=\"$DEFINITION_DIR\"" >> .env
     echo "GRAPHQL_PORT=\"$GRAPHQL_PORT\"" >> .env
     printf "${BGREEN}Admin DID generated: $did
 ${NC}"
@@ -46,4 +50,4 @@ node ./scripts/build-config.js
 printf "${BLUE}Let's run composeDB 🧪
 ${NC}"
 
-pnpm ceramic daemon --config ./.generated/ceramic-config.json
+ceramic daemon --config ./.generated/ceramic-config.json

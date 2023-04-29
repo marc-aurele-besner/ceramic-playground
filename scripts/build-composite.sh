@@ -10,43 +10,31 @@ if test -f .env; then
     printf "${BLUE}.env file found. Using it...
 ${NC}"
 else
-    printf "⚠️${BYELLOW}No .env file found. Please run pnpm dev first...
+    printf "⚠️${BYELLOW}No .env file found. Please run dev first...
 ${NC}"
 fi
 
 set -o allexport; source .env; set +o allexport
 
-DEFAULT_COMPOSITE_PATH='my-composite.json'
-DEFAULT_MODEL_ID='kjzl6hvfrbw6c5sffjlmczg8nmbk8kwu9lmgiqfd9bxi7pxp14u674cuxp09szz'
+yourfilenames=`ls $MODELS_DIR/*.graphql`
+for eachfile in $yourfilenames
+do
+    base_name=$(basename ${eachfile})
+    file_name="${base_name%.*}"
 
-if [ -z ${COMPOSITE_PATH+x} ]; then
-    printf "${BYELLOW}.env No COMPOSITE_PATH set in .env. Using default: ${DEFAULT_COMPOSITE_PATH}
-${NC}"
-    echo "COMPOSITE_PATH=\"${DEFAULT_COMPOSITE_PATH}\"" >> .env
-    COMPOSITE_PATH=${DEFAULT_COMPOSITE_PATH}
-    printf "${BGREEN}.env COMPOSITE_PATH set to ${DEFAULT_COMPOSITE_PATH} in .env file 📝
-${NC}"
-fi
+    printf "${BLUE}Generate composite from model ${eachfile} 📦
+    ${NC}"
+    composedb composite:create $eachfile --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}" --output=${COMPOSITE_DIR}/${file_name}.json
 
-if [ -z ${MODEL_ID+x} ]; then
-    printf "${BYELLOW}.env No MODEL_ID set in .env. Using default: ${DEFAULT_MODEL_ID}
-${NC}"
-    echo "MODEL_ID=\"${DEFAULT_MODEL_ID}\"" >> .env
-    MODEL_ID=${DEFAULT_MODEL_ID}
-    printf "${BGREEN}.env MODEL_ID set to ${DEFAULT_MODEL_ID} in .env file 📝
-${NC}"
-fi
+    printf "${BLUE}Deploy composite for model ${file_name} 🚀
+    ${NC}"
 
-printf "${BLUE}Generate composite from model ${MODEL_ID} 📦
-${NC}"
+    composedb composite:deploy ${COMPOSITE_DIR}/${file_name}.json --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}"
 
-pnpm composedb composite:from-model ${MODEL_ID} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}" --output=${COMPOSITE_DIR}/${COMPOSITE_PATH}
+    printf "${BLUE}Compile JS definitons for model ${file_name} 💾
+    ${NC}"
+
+    composedb composite:compile ${COMPOSITE_DIR}/${file_name}.json ${DEFINITION_DIR}/${file_name}.js
+done
 
 node ./scripts/format-composite.js
-
-printf "${BLUE}Deploy composite ${MODEL_ID} 📦
-${NC}"
-
-composedb composite:deploy ${COMPOSITE_DIR}/${COMPOSITE_PATH} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}"
-
-composedb composite:compile ${COMPOSITE_DIR}/${COMPOSITE_PATH} ${COMPOSITE_DIR}/definition.js
