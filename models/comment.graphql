@@ -1,0 +1,10 @@
+type Post @loadModel(id: "[modelName:post]") {
+  id: ID!
+}
+
+type Comment
+  @createModel(accountRelation: LIST, description: "A comment on a Post") {
+  postID: StreamID! @documentReference(model: "Post")
+  post: Post! @relationDocument(property: "postID")
+  text: String! @string(maxLength: 500)
+}

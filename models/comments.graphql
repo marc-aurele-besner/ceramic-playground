@@ -1,0 +1,7 @@
+type Comment @loadModel(id: "[modelName:comment]") {
+  id: ID!
+}
+
+type Post @loadModel(id: "[modelName:post]") {
+  comments: [Comment] @relationFrom(model: "Comment", property: "postID")
+}

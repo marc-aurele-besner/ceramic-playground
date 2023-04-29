@@ -1,0 +1,5 @@
+type Post
+  @createModel(accountRelation: LIST, description: "Public post model") {
+  content: String! @string(minLength: 1, maxLength: 200)
+  tags: String! @string(minLength: 1, maxLength: 200)
+}
