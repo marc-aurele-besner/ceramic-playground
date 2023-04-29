@@ -6,6 +6,11 @@ BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 NC='\033[0m'
 
+CERAMIC_URL='http:/0.0.0.0:7007'
+GENERATED_DIR='./.generated'
+COMPOSITE_DIR=${GENERATED_DIR}'/composite'
+GRAPHQL_PORT="5002"
+
 if test -f .env; then
     printf "${BLUE}.env file found. Using it...
     ${NC}"
@@ -20,6 +25,10 @@ ${NC}"
 ${NC}"
     did=$(composedb did:from-private-key $pk)
     echo "COMPOSEDB_ADMIN_DID=\"$did\"" >> .env
+    echo "CERAMIC_URL=\"$CERAMIC_URL\"" >> .env
+    echo "GENERATED_DIR=\"$GENERATED_DIR\"" >> .env
+    echo "COMPOSITE_DIR=\"$COMPOSITE_DIR\"" >> .env
+    echo "GRAPHQL_PORT=\"$GRAPHQL_PORT\"" >> .env
     printf "${BGREEN}Admin DID generated: $did
 ${NC}"
     printf "${BBLUE}Everything saved to .env file 💪

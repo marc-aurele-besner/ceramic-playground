@@ -1,9 +1,11 @@
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 
-const GENERATED_DIR = "./.generated";
-const COMPOSITE_DIR = "./.generated/composite";
-
 const format = () => {
+  if (!process.env.COMPOSITE_DIR)
+    throw new Error("COMPOSITE_DIR env variable is required");
+
+  const { COMPOSITE_DIR } = process.env;
+
   // List all file from directory
   const files = readdirSync(COMPOSITE_DIR);
 
