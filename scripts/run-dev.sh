@@ -39,7 +39,6 @@ ${NC}"
 ${NC}"
 fi
 
-
 set -o allexport; source .env; set +o allexport
 
 printf "${BLUE}Generate config file for Ceramic from .env 📦

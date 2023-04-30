@@ -42,13 +42,6 @@ do
 
         printf "${BLUE}Deploy composite for model: ${file_name} 🚀
         ${NC}"
-
-        # composedb composite:deploy ${COMPOSITE_DIR}/${file_name}.json --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}"
-
-        # printf "${BLUE}Compile JS definitons for model: ${file_name} 💾
-        # ${NC}"
-
-        # composedb composite:compile ${COMPOSITE_DIR}/${file_name}.json ${DEFINITION_DIR}/${file_name}.js
     done
 
     node ./scripts/format-composite.js
@@ -64,7 +57,6 @@ ${NC}"
     printf "${BLUE}Generate composite from models Ids: ${modelsIds} 📦
     ${NC}"
     composedb composite:merge ${modelsNames} --output=${COMPOSITE_DIR}/${ALL_MODELS_FILENAME}.json
-    #composedb composite:from-model ${modelsIds} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}" --output=${COMPOSITE_DIR}/${ALL_MODELS_FILENAME}.json
 
     printf "${BLUE}Deploy composite for models Ids: ${modelsIds} 🚀
     ${NC}"
