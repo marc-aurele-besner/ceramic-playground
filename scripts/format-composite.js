@@ -48,11 +48,6 @@ const format = () => {
     "\x1b[0m"
   );
 
-  // Build definitions index.js
-  writeFileSync(
-    `${DEFINITION_DIR}/index.js`,
-    `${definitionsHeader}\nexport default {\n${definitionsExport}};`
-  );
   console.log(
     "\x1b[32m",
     `Main JS definition build at ${DEFINITION_DIR}/index.js 💾`,

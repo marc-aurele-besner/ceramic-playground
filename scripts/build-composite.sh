@@ -43,12 +43,12 @@ do
         printf "${BLUE}Deploy composite for model: ${file_name} 🚀
         ${NC}"
 
-        composedb composite:deploy ${COMPOSITE_DIR}/${file_name}.json --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}"
+        # composedb composite:deploy ${COMPOSITE_DIR}/${file_name}.json --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}"
 
-        printf "${BLUE}Compile JS definitons for model: ${file_name} 💾
-        ${NC}"
+        # printf "${BLUE}Compile JS definitons for model: ${file_name} 💾
+        # ${NC}"
 
-        composedb composite:compile ${COMPOSITE_DIR}/${file_name}.json ${DEFINITION_DIR}/${file_name}.js
+        # composedb composite:compile ${COMPOSITE_DIR}/${file_name}.json ${DEFINITION_DIR}/${file_name}.js
     done
 
     node ./scripts/format-composite.js
@@ -59,10 +59,12 @@ if test -f ${GENERATED_DIR}/models-ids.txt; then
     printf "${BLUE} list of models ids found in ${GENERATED_DIR}/models-ids.txt
 ${NC}"
     modelsIds=`cat ${GENERATED_DIR}/models-ids.txt`
+    modelsNames=`cat ${GENERATED_DIR}/models-names.txt`
 
     printf "${BLUE}Generate composite from models Ids: ${modelsIds} 📦
     ${NC}"
-    composedb composite:from-model ${modelsIds} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}" --output=${COMPOSITE_DIR}/${ALL_MODELS_FILENAME}.json
+    composedb composite:merge ${modelsNames} --output=${COMPOSITE_DIR}/${ALL_MODELS_FILENAME}.json
+    #composedb composite:from-model ${modelsIds} --ceramic-url="${CERAMIC_URL}" --did-private-key="${COMPOSEDB_ADMIN_PK}" --output=${COMPOSITE_DIR}/${ALL_MODELS_FILENAME}.json
 
     printf "${BLUE}Deploy composite for models Ids: ${modelsIds} 🚀
     ${NC}"

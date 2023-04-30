@@ -1,16 +1,14 @@
 import { readdirSync, readFileSync, writeFileSync, unlinkSync } from "fs";
 
-const fix = () => {};
-
 const run = () => {
   if (!process.env.GENERATED_DIR)
     throw new Error("GENERATED_DIR env variable is required");
-  if (!process.env.MODELS_DIR)
-    throw new Error("MODELS_DIR env variable is required");
+  if (!process.env.COMPOSITE_DIR)
+    throw new Error("COMPOSITE_DIR env variable is required");
 
-  const { GENERATED_DIR } = process.env;
+  const { GENERATED_DIR, COMPOSITE_DIR } = process.env;
 
-  const remainingRelations = 0;
+  let remainingRelations = 0;
 
   const rawModelsList = readFileSync(
     `${GENERATED_DIR}/models-list.json`,
@@ -21,7 +19,7 @@ const run = () => {
   // List all file from directory
   const files = readdirSync(`${GENERATED_DIR}/models`);
 
-  const modelsMissing = files.length - (models.length - 1);
+  const modelsMissing = files.length - models.length;
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Models missing: ${modelsMissing}`,
@@ -81,6 +79,12 @@ const run = () => {
     // Delete pending relations file
     unlinkSync(`${GENERATED_DIR}/pending-relations.txt`);
   }
+
+  // Build a text file with all modelName
+  const modelsNames = models
+    .map((model) => `${COMPOSITE_DIR}/${model.modelName}.json`)
+    .join(" ");
+  writeFileSync(`${GENERATED_DIR}/models-names.txt`, modelsNames);
 };
 
 run();
